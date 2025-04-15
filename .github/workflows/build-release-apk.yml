@@ -7,44 +7,38 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04  # Use the latest runner version
     steps:
-      # Step 1: Check out the code repository
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # Step 2: Set up Python environment
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.9'  # Use Python 3.9 as required by your project
 
-      # Step 3: Install Poetry and dependencies
       - name: Install Flet and Dependencies
         run: |
           python -m pip install --upgrade pip
           pip install poetry
           poetry install  # Installs dependencies from pyproject.toml
 
-      # Step 4: Build APK
       - name: Build APK
         env:
           PATH: ${{ env.PATH }}:~/.local/bin  # Add Poetry's local binary path
         run: |
           poetry run flet build apk -v  # Build the APK. The APK will be in the `dist/` folder
 
-      # Step 5: Upload the built APK as an artifact
       - name: Upload APK Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v3.1.1  # Explicit version used here
         with:
           name: logistics-app-release-apk
-          path: dist/*.apk  # Upload the APK located in the `dist/` folder
+          path: dist/*.apk
 
-      # Step 6: Create a GitHub Release and upload the APK
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
-          generate_release_notes: true  # Automatically generate release notes
-          files: dist/*.apk  # Attach only the APK to the release
+          generate_release_notes: true
+          files: dist/*.apk
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # This token is provided automatically by GitHub
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
