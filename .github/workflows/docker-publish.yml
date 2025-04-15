@@ -33,11 +33,11 @@ jobs:
       # Step 4: Build and Push the Docker image
       - name: Build and Push Docker image
         run: |
-          IMAGE_NAME=ghcr.io/${{ github.repository }}
+          IMAGE_NAME=ghcr.io/${{ github.repository | toLowerCase() }}
           docker build -t $IMAGE_NAME .
           docker push $IMAGE_NAME
 
       # Step 5: Output image name
       - name: Output Image Name
         run: |
-          echo "Docker image pushed to: ghcr.io/${{ github.repository }}:latest"
+          echo "Docker image pushed to: ghcr.io/${{ github.repository | toLowerCase() }}:latest"
