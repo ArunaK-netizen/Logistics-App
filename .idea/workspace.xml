@@ -5,11 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eca2c50c-918c-4cb4-846c-3c66cd84960e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/Logistics.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/build-release-apk.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/build-release-apk.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +16,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "ArunaK-netizen"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/ArunaK-netizen/Logistics-App.git",
+    "accountId": "bb786e3b-635c-4306-a956-a6b938d81944"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
@@ -60,7 +69,7 @@
       <updated>1744649925749</updated>
       <workItem from="1744649926825" duration="7834000" />
       <workItem from="1744689967968" duration="8923000" />
-      <workItem from="1744707210585" duration="310000" />
+      <workItem from="1744707210585" duration="1089000" />
     </task>
     <servers />
   </component>
