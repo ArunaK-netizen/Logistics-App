@@ -3,13 +3,12 @@ name = "logistics"
 version = "0.1.0"
 description = ""
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.9,<4.0"
 authors = [
     { name = "Flet developer", email = "you@example.com" }
 ]
 dependencies = [
   "flet==0.27.6",
-  "poetry>=2.1.2",
 ]
 
 [tool.flet]
@@ -37,6 +36,8 @@ dev-dependencies = [
 
 [tool.poetry]
 package-mode = false
+python = ">=3.9,<4.0"
+
 
 [tool.poetry.group.dev.dependencies]
 flet = {extras = ["all"], version = "0.27.6"}
