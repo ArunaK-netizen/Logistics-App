@@ -73,7 +73,7 @@ jobs:
           ls -la ./src/
           
           # Build the APK with verbose output
-          flet build apk --target=./src/main.py -v
+          flet build apk 
           
           # Debug output to verify APK was created
           echo "Searching for APK files:"
