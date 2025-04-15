@@ -3,13 +3,13 @@ name: Build & Release APK
 on:
   push:
     tags:
-      - 'v*.*.*' # Trigger the job only when you push versioned tags (e.g., v1.0.0)
+      - 'v*.*.*'  # The workflow triggers on versioned tags (e.g., v0.1.0)
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      # Step 1: Check out the repository
+      # Step 1: Check out the code repository
       - name: Checkout Repository
         uses: actions/checkout@v4
 
@@ -17,33 +17,34 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.9'
+          python-version: '3.9'  # Use Python 3.9 as required by your project
 
-      # Step 3: Install Flet
-      - name: Install Flet and dependencies
+      # Step 3: Install Poetry and dependencies
+      - name: Install Flet and Dependencies
         run: |
           python -m pip install --upgrade pip
           pip install poetry
-          poetry install
+          poetry install  # Installs dependencies from pyproject.toml
 
-      # Step 4: Build the APK
+      # Step 4: Build APK
       - name: Build APK
         env:
-          PATH: ${{ env.PATH }}:~/.local/bin
-        run: poetry run flet build apk -v
+          PATH: ${{ env.PATH }}:~/.local/bin  # Add Poetry's local binary path
+        run: |
+          poetry run flet build apk -v  # Build the APK. The APK will be in the `dist/` folder
 
-      # Step 5: Upload the APK as an artifact
+      # Step 5: Upload the built APK as an artifact
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v3
         with:
           name: logistics-app-release-apk
-          path: dist/*.apk
+          path: dist/*.apk  # Upload the APK located in the `dist/` folder
 
-      # Step 6: Create a GitHub release and attach APK
+      # Step 6: Create a GitHub Release and upload the APK
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
-          generate_release_notes: true
+          generate_release_notes: true  # Automatically generate release notes
+          files: dist/*.apk  # Attach only the APK to the release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          files: dist/*.apk
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # This token is provided automatically by GitHub
