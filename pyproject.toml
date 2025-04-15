@@ -36,7 +36,7 @@ dev-dependencies = [
 
 [tool.poetry]
 package-mode = false
-python = ">=3.9,<4.0"
+
 
 
 [tool.poetry.group.dev.dependencies]
