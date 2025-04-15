@@ -1,5 +1,3 @@
-name: Docker Build & Publish to GHCR
-
 on:
   push:
     tags:
@@ -39,5 +37,5 @@ jobs:
 
       # Step 5: Output image name
       - name: Output Image Name
-        run: echo "Docker image pushed to: ghcr.io/${{ github.repository }}:latest"
-
+        run: |
+          echo "Docker image pushed to: ghcr.io/${{ github.repository }}:latest"
