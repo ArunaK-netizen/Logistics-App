@@ -12,11 +12,41 @@ def main(page: ft.Page):
 
     notifications = ["Low stock on Product A", "New sale on Product B", "Customer C requested a refund"]
 
+    def clear_all_notifications():
+        notifications.clear()
+
+        notif_popup.content.controls[2:] = [  # keep header & divider, replace notification list
+            ft.Text("No notifications", size=14, color=ft.colors.GREY_500)
+        ]
+
+        # Also update the badge count on the bell icon
+        bell_icon.controls[1].content.value = "0"
+
+        page.update()
+
     notif_popup = ft.Container(
         visible=False,
         content=ft.Column(
             controls=[
-                ft.Text("Notifications", size=15, weight=ft.FontWeight.BOLD),
+                ft.Container(
+                    content=ft.Row(
+                        controls=[
+                            ft.Text("Notifications", size=15, weight=ft.FontWeight.BOLD),
+                            ft.TextButton(
+                                text="Clear All",
+                                style=ft.ButtonStyle(
+                                    padding=0,
+                                ),
+                                on_click=lambda e: clear_all_notifications(),
+                            ),
+                        ],
+                        alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                    ),
+                    padding=10,
+                )
+
+                ,
+
                 ft.Divider(),
                 *([ft.Text(notif, size=14) for notif in notifications] if notifications
                   else [ft.Text("No notifications", size=14, color=ft.colors.GREY_500)])
