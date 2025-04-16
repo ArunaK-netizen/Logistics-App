@@ -10,9 +10,124 @@ def main(page: ft.Page):
     page.scroll = ft.ScrollMode.AUTO
     page.theme_mode = ft.ThemeMode.LIGHT
 
+    notifications = ["Low stock on Product A", "New sale on Product B", "Customer C requested a refund"]
+
+    notif_popup = ft.Container(
+        visible=False,
+        content=ft.Column(
+            controls=[
+                ft.Text("Notifications", size=15, weight=ft.FontWeight.BOLD),
+                ft.Divider(),
+                *([ft.Text(notif, size=14) for notif in notifications] if notifications
+                  else [ft.Text("No notifications", size=14, color=ft.colors.GREY_500)])
+            ],
+            spacing=10,
+        )
+        ,
+        bgcolor=ft.colors.WHITE,
+        border_radius=8,
+        shadow=ft.BoxShadow(
+            color=ft.colors.BLACK12,
+            blur_radius=4,
+            spread_radius=1,
+            offset=ft.Offset(0, 2),
+        ),
+        padding=10,
+        width=250,
+    )
+
+    page.overlay.append(notif_popup)
+
+
     def toggle_theme():
         page.theme_mode = ft.ThemeMode.LIGHT if page.theme_mode == ft.ThemeMode.DARK else ft.ThemeMode.DARK
         page.update()
+
+    def toggle_notifications_popup(e):
+        notif_popup.right = 10
+        notif_popup.top = 5
+        notif_popup.visible = not notif_popup.visible
+        page.update()
+
+    bell_icon = ft.Stack(
+        controls=[
+            ft.IconButton(
+                icon=ft.icons.NOTIFICATIONS,
+                icon_size=24,
+                tooltip="View notifications",
+                on_click=toggle_notifications_popup
+            ),
+            ft.Container(
+                content=ft.Text(str(len(notifications)), size=12, color=ft.colors.WHITE),
+                bgcolor=ft.colors.RED,
+                width=18,
+                height=18,
+                alignment=ft.alignment.center,
+                border_radius=10,
+                right=0,
+                top=0,
+            )
+        ],
+        width=40,
+        height=40,
+    )
+
+    page.drawer = ft.NavigationDrawer(
+        controls=[
+            ft.Container(height=50),
+            ft.Container(ft.Text("Menu", size=18, weight=ft.FontWeight.BOLD), padding=10)
+            ,
+            ft.Divider(),
+            ft.NavigationDrawerDestination(
+                icon=ft.icons.HOME,
+                label="Dashboard",
+            ),
+            ft.NavigationDrawerDestination(
+                icon=ft.icons.INVENTORY,
+                label="Inventory",
+            ),
+            ft.NavigationDrawerDestination(
+                icon=ft.icons.SHOPPING_CART,
+                label="Sales",
+            ),
+            ft.NavigationDrawerDestination(
+                icon=ft.icons.HOME,
+                label="Customers",
+            ),
+            ft.NavigationDrawerDestination(
+                icon=ft.icons.INSIGHTS,
+                label="Insights",
+            ),
+            ft.NavigationDrawerDestination(
+                icon=ft.icons.SETTINGS,
+                label="Settings",
+            ),
+
+            ft.Container(expand=True),
+
+            ft.Divider(),
+            ft.Container(
+                content=ft.Column(
+                    controls=[
+                        ft.ListTile(
+                            leading=ft.Icon(ft.icons.ACCOUNT_CIRCLE),
+                            title=ft.Text("Login / Signup"),
+                            subtitle=ft.Text("Access your account"),
+                            # on_click=lambda e: page.snack_bar.open("Login action")
+                        )
+                    ]
+                ),
+                padding=10
+            )
+        ]
+    )
+
+    def open_side_menu(e=None):
+        page.drawer.open = True
+        page.update()
+
+
+
 
     def update_layout(e=None):
         page.controls.clear()
@@ -25,11 +140,10 @@ def main(page: ft.Page):
         page.appbar = ft.AppBar(
             leading=ft.Row(
     controls=[
-        # Menu icon (leading)
         ft.IconButton(
             icon=ft.icons.MENU,
             icon_size=24,
-            on_click=lambda _: print("Menu clicked")  # You can connect this to open a drawer
+            on_click=lambda e : open_side_menu()
         ),
 
         # Search bar
@@ -56,12 +170,11 @@ def main(page: ft.Page):
             bgcolor=ft.colors.SURFACE_CONTAINER_HIGHEST,
             actions=[
 
-                # 🔔 Notification icon
-                ft.IconButton(
-                    icon=ft.icons.NOTIFICATIONS,
-                    icon_color=ft.colors.GREY_700,
-                    tooltip="Notifications"
-                ),
+                        bell_icon,
+
+
+
+
                 # 🌙/☀️ Theme toggle
                 ft.IconButton(
                     icon=ft.icons.DARK_MODE,
@@ -135,11 +248,11 @@ def main(page: ft.Page):
             ])
         )
         if width < 500:
-            insights_item_width = width / 2
+            insights_item_width = width // 2
         elif width < 800:
-            insights_item_width = width / 2
+            insights_item_width = width // 2
         else:
-            insights_item_width = width / 2
+            insights_item_width = width // 2
 
         insights = ft.GridView(
             expand=1,
