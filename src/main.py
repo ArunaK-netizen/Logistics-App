@@ -15,7 +15,7 @@ def main(page: ft.Page):
     def clear_all_notifications():
         notifications.clear()
 
-        notif_popup.content.controls[2:] = [  # keep header & divider, replace notification list
+        notif_popup.content.controls[2:] = [
             ft.Text("No notifications", size=14, color=ft.colors.GREY_500)
         ]
 
@@ -163,6 +163,7 @@ def main(page: ft.Page):
         page.controls.clear()
 
         width = page.width
+
         heading_size = 30 if width > 800 else 22
         subtext_size = 16 if width > 800 else 13
         padding_size = 30 if width > 800 else 15
