@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eca2c50c-918c-4cb4-846c-3c66cd84960e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/app_bar.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/home_view.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/app_bar.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/app_bar.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/home_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home_view.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -85,7 +85,9 @@
       <workItem from="1744784232091" duration="9250000" />
       <workItem from="1744807874780" duration="977000" />
       <workItem from="1744808915166" duration="859000" />
-      <workItem from="1744811210202" duration="5635000" />
+      <workItem from="1744811210202" duration="5760000" />
+      <workItem from="1744859025141" duration="8000" />
+      <workItem from="1744878304717" duration="3049000" />
     </task>
     <servers />
   </component>
