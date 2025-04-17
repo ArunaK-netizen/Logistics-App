@@ -5,9 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eca2c50c-918c-4cb4-846c-3c66cd84960e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/components/customers_view.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/insights_view.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/inventory_view.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/sales_view.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/settings_view.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/app_bar.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/app_bar.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home_view.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -44,6 +47,9 @@
   &quot;associatedIndex&quot;: 3
 }</component>
   <component name="ProjectId" id="2vjE8l1Z4aWnG42seVjf2zrxTMZ" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -87,7 +93,7 @@
       <workItem from="1744808915166" duration="859000" />
       <workItem from="1744811210202" duration="5760000" />
       <workItem from="1744859025141" duration="8000" />
-      <workItem from="1744878304717" duration="3049000" />
+      <workItem from="1744878304717" duration="5745000" />
     </task>
     <servers />
   </component>
