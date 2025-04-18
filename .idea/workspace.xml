@@ -5,13 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eca2c50c-918c-4cb4-846c-3c66cd84960e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/customers_view.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/insights_view.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/inventory_view.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/sales_view.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/settings_view.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/insights_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/insights_view.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/inventory_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/inventory_view.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,7 +89,10 @@
       <workItem from="1744808915166" duration="859000" />
       <workItem from="1744811210202" duration="5760000" />
       <workItem from="1744859025141" duration="8000" />
-      <workItem from="1744878304717" duration="5745000" />
+      <workItem from="1744878304717" duration="6813000" />
+      <workItem from="1744886459196" duration="373000" />
+      <workItem from="1744984585553" duration="932000" />
+      <workItem from="1744993592378" duration="745000" />
     </task>
     <servers />
   </component>
