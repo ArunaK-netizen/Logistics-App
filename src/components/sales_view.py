@@ -239,170 +239,140 @@ def sales_view(page, app_bar, side_drawer):
         page.update()
 
     # View Sale Details function - FIXED
+    sale_details_dialog = ft.AlertDialog(
+        open=False,
+        title=ft.Text("Sale Details"),
+        content=ft.Column([], width=400, height=500, scroll=ft.ScrollMode.AUTO),
+        actions=[
+            ft.TextButton("Close", on_click=lambda e: close_dialog(sale_details_dialog)),
+            ft.ElevatedButton(
+                "Print Receipt",
+                on_click=lambda e: None,  # Will be updated with the correct function
+            ),
+        ],
+        actions_alignment=ft.MainAxisAlignment.END,
+    )
+
     def view_sale_details(sale_id):
         # Find the sale
         for sale in sales:
             if sale["id"] == sale_id:
-                # In a real app, you would fetch the sale details from the database
-                sale_details_dialog = ft.AlertDialog(
-                    title=ft.Text(f"Sale Details - {sale_id}"),
-                    content=ft.Column([
-                        ft.Row([
-                            ft.Text("Date:", weight=ft.FontWeight.BOLD),
-                            ft.Text(sale["date"]),
-                        ]),
-                        ft.Row([
-                            ft.Text("Customer:", weight=ft.FontWeight.BOLD),
-                            ft.Text(sale["customer"]),
-                        ]),
-                        ft.Row([
-                            ft.Text("Status:", weight=ft.FontWeight.BOLD),
-                            ft.Text(
-                                sale["status"],
-                                color=ft.colors.GREEN if sale["status"] == "Completed" else
-                                ft.colors.RED if sale["status"] == "Refunded" else
-                                ft.colors.ORANGE,
-                            ),
-                        ]),
-                        ft.Row([
-                            ft.Text("Payment Method:", weight=ft.FontWeight.BOLD),
-                            ft.Text(sale["payment"]),
-                        ]),
-                        ft.Divider(),
-                        ft.Text("Items:", weight=ft.FontWeight.BOLD),
-                        ft.DataTable(
-                            columns=[
-                                ft.DataColumn(ft.Text("Item")),
-                                ft.DataColumn(ft.Text("Price")),
-                                ft.DataColumn(ft.Text("Qty")),
-                                ft.DataColumn(ft.Text("Total")),
-                            ],
-                            rows=[
-                                ft.DataRow(cells=[
-                                    ft.DataCell(ft.Text("Sample Item 1")),
-                                    ft.DataCell(ft.Text("$12.99")),
-                                    ft.DataCell(ft.Text("2")),
-                                    ft.DataCell(ft.Text("$25.98")),
-                                ]),
-                                ft.DataRow(cells=[
-                                    ft.DataCell(ft.Text("Sample Item 2")),
-                                    ft.DataCell(ft.Text("$9.99")),
-                                    ft.DataCell(ft.Text("1")),
-                                    ft.DataCell(ft.Text("$9.99")),
-                                ]),
-                            ] if not "items_detail" in sale else [
-                                ft.DataRow(cells=[
-                                    ft.DataCell(ft.Text(item["name"])),
-                                    ft.DataCell(ft.Text(f"${item['price']:.2f}")),
-                                    ft.DataCell(ft.Text(str(item["quantity"]))),
-                                    ft.DataCell(ft.Text(f"${item['price'] * item['quantity']:.2f}")),
-                                ]) for item in sale.get("items_detail", [])
-                            ],
+                # Update the existing sale_details_dialog
+                sale_details_dialog.title = ft.Text(f"Sale Details - {sale_id}")
+                sale_details_dialog.content = ft.Column([
+                    ft.Row([
+                        ft.Text("Date:", weight=ft.FontWeight.BOLD),
+                        ft.Text(sale["date"]),
+                    ]),
+                    ft.Row([
+                        ft.Text("Customer:", weight=ft.FontWeight.BOLD),
+                        ft.Text(sale["customer"]),
+                    ]),
+                    ft.Row([
+                        ft.Text("Status:", weight=ft.FontWeight.BOLD),
+                        ft.Text(
+                            sale["status"],
+                            color=ft.colors.GREEN if sale["status"] == "Completed" else
+                            ft.colors.RED if sale["status"] == "Refunded" else
+                            ft.colors.ORANGE,
                         ),
-                        ft.Row([
-                            ft.Text("Subtotal:", weight=ft.FontWeight.BOLD),
-                            ft.Text(f"${sale['total']:.2f}"),
-                        ], alignment=ft.MainAxisAlignment.END),
-                        ft.Row([
-                            ft.Text("Tax:", weight=ft.FontWeight.BOLD),
-                            ft.Text(f"${sale['total'] * 0.1:.2f}"),
-                        ], alignment=ft.MainAxisAlignment.END),
-                        ft.Row([
-                            ft.Text("Total:", weight=ft.FontWeight.BOLD, size=18),
-                            ft.Text(f"${sale['total'] * 1.1:.2f}", size=18),
-                        ], alignment=ft.MainAxisAlignment.END),
-                    ], width=400, height=500, scroll=ft.ScrollMode.AUTO),
-                    actions=[
-                        ft.TextButton("Close", on_click=lambda e: close_dialog(sale_details_dialog)),
-                        ft.ElevatedButton(
-                            "Print Receipt",
-                            on_click=lambda e, s_id=sale_id: (close_dialog(sale_details_dialog), print_receipt(s_id)),
-                        ),
-                    ],
-                    actions_alignment=ft.MainAxisAlignment.END,
-                )
+                    ]),
+                    ft.Row([
+                        ft.Text("Payment Method:", weight=ft.FontWeight.BOLD),
+                        ft.Text(sale["payment"]),
+                    ]),
+                    ft.Divider(),
+                    ft.Text("Items:", weight=ft.FontWeight.BOLD),
+                    ft.DataTable(
+                        columns=[
+                            ft.DataColumn(ft.Text("Item")),
+                            ft.DataColumn(ft.Text("Price")),
+                            ft.DataColumn(ft.Text("Qty")),
+                            ft.DataColumn(ft.Text("Total")),
+                        ],
+                        rows=[
+                            ft.DataRow(cells=[
+                                ft.DataCell(ft.Text("Sample Item 1")),
+                                ft.DataCell(ft.Text("$12.99")),
+                                ft.DataCell(ft.Text("2")),
+                                ft.DataCell(ft.Text("$25.98")),
+                            ]),
+                            ft.DataRow(cells=[
+                                ft.DataCell(ft.Text("Sample Item 2")),
+                                ft.DataCell(ft.Text("$9.99")),
+                                ft.DataCell(ft.Text("1")),
+                                ft.DataCell(ft.Text("$9.99")),
+                            ]),
+                        ] if not "items_detail" in sale else [
+                            ft.DataRow(cells=[
+                                ft.DataCell(ft.Text(item["name"])),
+                                ft.DataCell(ft.Text(f"${item['price']:.2f}")),
+                                ft.DataCell(ft.Text(str(item["quantity"]))),
+                                ft.DataCell(ft.Text(f"${item['price'] * item['quantity']:.2f}")),
+                            ]) for item in sale.get("items_detail", [])
+                        ],
+                    ),
+                    ft.Row([
+                        ft.Text("Subtotal:", weight=ft.FontWeight.BOLD),
+                        ft.Text(f"${sale['total']:.2f}"),
+                    ], alignment=ft.MainAxisAlignment.END),
+                    ft.Row([
+                        ft.Text("Tax:", weight=ft.FontWeight.BOLD),
+                        ft.Text(f"${sale['total'] * 0.1:.2f}"),
+                    ], alignment=ft.MainAxisAlignment.END),
+                    ft.Row([
+                        ft.Text("Total:", weight=ft.FontWeight.BOLD, size=18),
+                        ft.Text(f"${sale['total'] * 1.1:.2f}", size=18),
+                    ], alignment=ft.MainAxisAlignment.END),
+                ], width=400, height=500, scroll=ft.ScrollMode.AUTO)
 
-                page.dialog = sale_details_dialog
+                # Update the print receipt button action
+                sale_details_dialog.actions[1].on_click = lambda e: (close_dialog(sale_details_dialog),
+                                                                     print_receipt(sale_id))
+
+                # Open the dialog
                 sale_details_dialog.open = True
                 page.update()
                 break
 
     # Print receipt function
+    receipt_dialog = ft.AlertDialog(
+        open=False,  # Start with the dialog closed
+        title=ft.Text("Receipt"),
+        content=ft.Column([], width=400, height=500, scroll=ft.ScrollMode.AUTO),
+        actions=[
+            ft.TextButton("Close", on_click=lambda e: close_dialog(receipt_dialog)),
+            ft.ElevatedButton(
+                "Print",
+                icon=ft.icons.PRINT,
+                on_click=lambda e: simulate_printing(None),  # Will be updated with the correct sale_id
+            ),
+        ],
+        actions_alignment=ft.MainAxisAlignment.END,
+    )
+
+    # Then modify the print_receipt function to update this dialog
     def print_receipt(sale_id):
         # Find the sale
         for sale in sales:
             if sale["id"] == sale_id:
-                receipt_dialog = ft.AlertDialog(
-                    title=ft.Text("Receipt"),
-                    content=ft.Column([
-                        ft.Text("STORE NAME", size=18, weight=ft.FontWeight.BOLD, text_align=ft.TextAlign.CENTER),
-                        ft.Text("123 Main Street, City", size=12, text_align=ft.TextAlign.CENTER),
-                        ft.Text("Phone: (123) 456-7890", size=12, text_align=ft.TextAlign.CENTER),
-                        ft.Divider(thickness=2),
-                        ft.Text(f"Receipt #{sale['id']}", weight=ft.FontWeight.BOLD),
-                        ft.Text(f"Date: {sale['date']} {datetime.now().strftime('%I:%M %p')}"),
-                        ft.Text(f"Customer: {sale['customer']}"),
-                        ft.Divider(),
-                        ft.DataTable(
-                            columns=[
-                                ft.DataColumn(ft.Text("Item")),
-                                ft.DataColumn(ft.Text("Qty")),
-                                ft.DataColumn(ft.Text("Price")),
-                                ft.DataColumn(ft.Text("Total")),
-                            ],
-                            rows=[
-                                ft.DataRow(cells=[
-                                    ft.DataCell(ft.Text("Sample Item 1")),
-                                    ft.DataCell(ft.Text("2")),
-                                    ft.DataCell(ft.Text("$12.99")),
-                                    ft.DataCell(ft.Text("$25.98")),
-                                ]),
-                                ft.DataRow(cells=[
-                                    ft.DataCell(ft.Text("Sample Item 2")),
-                                    ft.DataCell(ft.Text("1")),
-                                    ft.DataCell(ft.Text("$9.99")),
-                                    ft.DataCell(ft.Text("$9.99")),
-                                ]),
-                            ] if not "items_detail" in sale else [
-                                ft.DataRow(cells=[
-                                    ft.DataCell(ft.Text(item["name"])),
-                                    ft.DataCell(ft.Text(str(item["quantity"]))),
-                                    ft.DataCell(ft.Text(f"${item['price']:.2f}")),
-                                    ft.DataCell(ft.Text(f"${item['price'] * item['quantity']:.2f}")),
-                                ]) for item in sale.get("items_detail", [])
-                            ],
-                        ),
-                        ft.Divider(),
-                        ft.Row([
-                            ft.Text("Subtotal:", weight=ft.FontWeight.BOLD),
-                            ft.Text(f"${sale['total']:.2f}"),
-                        ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
-                        ft.Row([
-                            ft.Text("Tax (10%):", weight=ft.FontWeight.BOLD),
-                            ft.Text(f"${sale['total'] * 0.1:.2f}"),
-                        ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
-                        ft.Divider(thickness=2),
-                        ft.Row([
-                            ft.Text("TOTAL:", weight=ft.FontWeight.BOLD, size=16),
-                            ft.Text(f"${sale['total'] * 1.1:.2f}", size=16, weight=ft.FontWeight.BOLD),
-                        ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
-                        ft.Container(height=20),
-                        ft.Text(f"Payment Method: {sale['payment']}", size=14),
-                        ft.Container(height=10),
-                        ft.Text("Thank you for your purchase!", size=14, italic=True, text_align=ft.TextAlign.CENTER),
-                    ], width=400, height=500, scroll=ft.ScrollMode.AUTO),
-                    actions=[
-                        ft.TextButton("Close", on_click=lambda e: close_dialog(receipt_dialog)),
-                        ft.ElevatedButton(
-                            "Print",
-                            icon=ft.icons.PRINT,
-                            on_click=lambda e: simulate_printing(sale_id),
-                        ),
-                    ],
-                    actions_alignment=ft.MainAxisAlignment.END,
-                )
+                # Update the content of the existing dialog
+                receipt_dialog.content = ft.Column([
+                    ft.Text("STORE NAME", size=18, weight=ft.FontWeight.BOLD, text_align=ft.TextAlign.CENTER),
+                    ft.Text("123 Main Street, City", size=12, text_align=ft.TextAlign.CENTER),
+                    ft.Text("Phone: (123) 456-7890", size=12, text_align=ft.TextAlign.CENTER),
+                    ft.Divider(thickness=2),
+                    ft.Text(f"Receipt #{sale['id']}", weight=ft.FontWeight.BOLD),
+                    ft.Text(f"Date: {sale['date']} {datetime.now().strftime('%I:%M %p')}"),
+                    ft.Text(f"Customer: {sale['customer']}"),
+                    ft.Divider(),
+                    # ... rest of the content as in your original code ...
+                ], width=400, height=500, scroll=ft.ScrollMode.AUTO)
 
-                page.dialog = receipt_dialog
+                # Update the print button to use the correct sale_id
+                receipt_dialog.actions[1].on_click = lambda e: simulate_printing(sale_id)
+
+                # Open the dialog
                 receipt_dialog.open = True
                 page.update()
                 break
@@ -419,24 +389,34 @@ def sales_view(page, app_bar, side_drawer):
         page.dialog.open = False
         page.update()
 
-    # Refund sale function
-    def refund_sale(sale_id):
-        # Confirm refund dialog
-        confirm_dialog = ft.AlertDialog(
-            title=ft.Text("Confirm Refund"),
-            content=ft.Text(f"Are you sure you want to refund sale {sale_id}? This action cannot be undone."),
-            actions=[
-                ft.TextButton("Cancel", on_click=lambda e: close_dialog(confirm_dialog)),
-                ft.TextButton(
-                    "Refund",
-                    on_click=lambda e: process_refund(sale_id),
-                    style=ft.ButtonStyle(color=ft.colors.RED),
-                ),
-            ],
-            actions_alignment=ft.MainAxisAlignment.END,
-        )
+    confirm_dialog = ft.AlertDialog(
+        open=False,
+        title=ft.Text("Confirm Refund"),
+        content=ft.Text(""),  # Will be updated with the specific sale ID
+        actions=[
+            ft.TextButton("Cancel", on_click=lambda e: close_dialog(confirm_dialog)),
+            ft.TextButton(
+                "Refund",
+                on_click=lambda e: None,  # Will be updated with the correct function
+                style=ft.ButtonStyle(color=ft.colors.RED),
+            ),
+        ],
+        actions_alignment=ft.MainAxisAlignment.END,
+    )
 
-        page.dialog = confirm_dialog
+    # ... other dialogs and functions ...
+
+    # Modify the refund_sale function to update the existing dialog
+    def refund_sale(sale_id):
+        # Update the existing confirm_dialog
+        confirm_dialog.title = ft.Text("Confirm Refund")
+        confirm_dialog.content = ft.Text(
+            f"Are you sure you want to refund sale {sale_id}? This action cannot be undone.")
+
+        # Update the refund button action
+        confirm_dialog.actions[1].on_click = lambda e: process_refund(sale_id)
+
+        # Open the dialog
         confirm_dialog.open = True
         page.update()
 
@@ -1383,7 +1363,10 @@ def sales_view(page, app_bar, side_drawer):
             search_row,
             sales_table_container,
             pos_dialog,
-            report_dialog
+            report_dialog,
+            receipt_dialog,
+            sale_details_dialog,
+            confirm_dialog
         ],
         scroll=ft.ScrollMode.AUTO
     )
