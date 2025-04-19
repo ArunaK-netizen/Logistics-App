@@ -12,6 +12,24 @@ def home_view(page, app_bar, side_drawer):
     accent_color = ft.colors.GREEN_500
     border_color = ft.colors.GREY_400
 
+    # In home_view.py, update your metrics display
+
+    # Update recent activity
+    recent_activity_list = []
+    for activity in page.app_state['recent_activities'][:3]:  # Show 3 most recent
+        recent_activity_list.append(
+            ft.ListTile(
+                leading=ft.Icon(
+                    ft.icons.SHOPPING_BAG if activity['type'] == 'sale' else ft.icons.INVENTORY,
+                    color=primary_color
+                ),
+                title=ft.Text(activity['title']),
+                subtitle=ft.Text(activity['subtitle']),
+                trailing=ft.Text(activity['time'], size=subtext_size - 3, color=ft.colors.GREY_500),
+            )
+        )
+
+
     # Define all dialogs at the beginning
     product_details_dialog = ft.AlertDialog(
         open=False,
@@ -243,7 +261,7 @@ def home_view(page, app_bar, side_drawer):
             ft.Container(
                 content=ft.Row([
                     ft.Text("Total Revenue:", weight=ft.FontWeight.BOLD),
-                    ft.Text("$249.96", size=heading_size - 4),
+                    ft.Text(f"${page.app_state['total_sales']:.2f}", size=heading_size - 4),
                 ]),
                 padding=10
             ),
@@ -416,7 +434,7 @@ def home_view(page, app_bar, side_drawer):
                                     color=ft.colors.BLUE_GREY_500),
                         ]
                     ),
-                    ft.Text("3", size=heading_size, weight=ft.FontWeight.BOLD),
+                    ft.Text(str(page.app_state['total_orders']), size=heading_size, weight=ft.FontWeight.BOLD),
                     ft.Text("↑ 8.2%", size=subtext_size, color=ft.colors.GREEN_500)
                 ],
                 alignment=ft.MainAxisAlignment.CENTER,
@@ -444,7 +462,7 @@ def home_view(page, app_bar, side_drawer):
                             ft.Icon(ft.icons.INVENTORY, size=subtext_size + 2, color=ft.colors.AMBER_500),
                         ]
                     ),
-                    ft.Text("3", size=heading_size, weight=ft.FontWeight.BOLD),
+                    ft.Text(str(page.app_state['products_in_stock']), size=heading_size, weight=ft.FontWeight.BOLD),
                     ft.Text("↓ 3.1%", size=subtext_size, color=ft.colors.RED_500)
                 ],
                 alignment=ft.MainAxisAlignment.CENTER,
@@ -472,7 +490,7 @@ def home_view(page, app_bar, side_drawer):
                             ft.Icon(ft.icons.WARNING_AMBER_ROUNDED, size=subtext_size, color=ft.colors.RED_500),
                         ]
                     ),
-                    ft.Text("1", size=heading_size, weight=ft.FontWeight.BOLD),
+                    ft.Text(str(page.app_state['low_stock_items']), size=heading_size, weight=ft.FontWeight.BOLD),
                     ft.Text("Product", size=subtext_size)
                 ],
                 alignment=ft.MainAxisAlignment.CENTER,

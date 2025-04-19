@@ -7,6 +7,16 @@ from components.insights_view import insights_view
 from components.settings_view import settings_view
 from components.sales_view import sales_view
 
+
+app_state = {
+    "total_sales": 0,
+    "total_orders": 0,
+    "products_in_stock": 3,
+    "low_stock_items": 1,
+    "recent_activities": []
+}
+
+
 def main(page: ft.Page):
     page.fonts = {
         "Kanit": "https://raw.githubusercontent.com/google/fonts/master/ofl/kanit/Kanit-Bold.ttf",
@@ -17,7 +27,7 @@ def main(page: ft.Page):
     page.scroll = ft.ScrollMode.AUTO
     last_saved_mode = ft.ThemeMode.LIGHT
     page.theme_mode = last_saved_mode
-
+    page.app_state = app_state
 
     side_drawer, notif_popup, app_bar = app_bar_view(page)
 

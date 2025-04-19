@@ -795,6 +795,19 @@ def sales_view(page, app_bar, side_drawer):
         page.snack_bar = ft.SnackBar(content=ft.Text(f"Sale completed successfully! Total: ${total_amount:.2f}"))
         page.snack_bar.open = True
         page.update()
+        page.app_state["total_sales"] += total_amount
+        page.app_state["total_orders"] += 1
+
+        # Add to recent activities
+        page.app_state["recent_activities"].insert(0, {
+            "type": "sale",
+            "title": "New sale completed",
+            "subtitle": f"Customer {customer_name} - ${total_amount}",
+            "time": "Just now"
+        })
+
+        # Update the page
+        page.update()
 
     # Create the POS dialog
     pos_dialog = ft.AlertDialog(
